@@ -1,0 +1,24 @@
+{
+    "name": "mods/category",
+    "description": "A Category implementation based on Closure Tables.",
+    "authors": [
+        {
+            "name": "Sunel Tr",
+            "email": "sunelbe@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Mods\\Category": "src/"
+        }
+    },
+    "autoload-dev": {
+    },
+    "minimum-stability": "dev"
+}
