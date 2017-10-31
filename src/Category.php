@@ -20,7 +20,56 @@ class Category extends Eloquent
      *
      * @var ClosureTable
      */
-    protected $closure = Mods\Category\CategoryClosure::class;
+    protected $closure = \Mods\Category\CategoryClosure::class;
+
+    /**
+     * "Query all models" flag.
+     *
+     * @var string
+     */
+    const QUERY_ALL = 'all';
+
+    /**
+     * "Query all previous models" flag.
+     *
+     * @var string
+     */
+    const QUERY_PREV_ALL = 'prev_all';
+
+    /**
+     * "Query one previous model" flag.
+     *
+     * @var string
+     */
+    const QUERY_PREV_ONE = 'prev_one';
+
+    /**
+     * "Query all next models" flag.
+     *
+     * @var string
+     */
+    const QUERY_NEXT_ALL = 'next_all';
+
+    /**
+     * "Query one next model" flag.
+     *
+     * @var string
+     */
+    const QUERY_NEXT_ONE = 'next_one';
+
+    /**
+     * "Query models that are neighbors to this model" flag.
+     *
+     * @var string
+     */
+    const QUERY_NEIGHBORS = 'neighbors';
+
+    /**
+     * "Query the last model" flag.
+     *
+     * @var string
+     */
+    const QUERY_LAST = 'last';
 
     /**
      * Cached "previous" (i.e. before the model is moved) direct ancestor id of this model.
@@ -248,14 +297,14 @@ class Category extends Eloquent
 
         // If model's parent identifier was changed,
         // the closure table rows will update automatically.
-        static::saving(function (Entity $entity) {
+        static::saving(function (Category $entity) {
             $entity->clampPosition();
             $entity->moveNode();
         });
 
         // When entity is created, the appropriate
         // data will be put into the closure table.
-        static::created(function (Entity $entity) {
+        static::created(function (Category $entity) {
             $entity->old_parent_id = false;
             $entity->old_position = $entity->position;
             $entity->insertNode();
@@ -264,7 +313,7 @@ class Category extends Eloquent
         // Everytime the model's position or parent
         // is changed, its siblings reordering will happen,
         // so they will always keep the proper order.
-        static::saved(function (Entity $entity) {
+        static::saved(function (Category $entity) {
             $entity->reorderSiblings();
         });
     }

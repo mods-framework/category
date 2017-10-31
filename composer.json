@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mods\\Category": "src/"
+            "Mods\\Category\\": "src/"
         }
     },
     "autoload-dev": {
